@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>五毒狗 vs 皮皮🐷</title>
+<title>五毒🐶 vs 皮皮🐷</title>
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin />
 <link href="https://fonts.loli.net/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
 <style>
@@ -71,6 +71,7 @@
 
   .hdr-right { display: flex; align-items: center; gap: 14px; }
   .winner { display: flex; align-items: center; padding: 10px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+  .winner .winner-label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 1px; margin-right: 8px; }
   .winner .winner-text { font-size: 20px; font-weight: 900; letter-spacing: 2px; line-height: 1; }
   .live { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); font-family: var(--mono); }
   .live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--down); box-shadow: 0 0 0 0 rgba(14,203,129,.5); animation: pulse 2s infinite; }
@@ -185,11 +186,12 @@
           </svg>
         </div>
         <div>
-          <h1>五毒狗 vs 皮皮🐷</h1>
+          <h1>五毒🐶 vs 皮皮🐷</h1>
           <div class="sub">持仓走势实时对比 · 归一化基准 100</div>
         </div>
       </div>
       <div class="winner" id="winnerWrap" style="display:none">
+        <span class="winner-label">今日战果</span>
         <span id="winnerName" class="winner-text">--</span>
       </div>
       <div class="hdr-right">
@@ -201,13 +203,13 @@
     <section class="hero">
       <div class="card port" id="cardPort">
         <div class="top">
-          <span class="name">五毒狗组合</span>
-          <span class="tag">66 / 10.3 / 3 / 3.6 / 2.4 / 3 · 现金 11.7%</span>
+          <span class="name">五毒🐶组合</span>
+          <span class="tag">10-15起 · 初始权重 66 / 10.3 / 3 / 3.6 / 2.4 / 3</span>
         </div>
         <div class="main">
           <div class="mega" id="portPct">--</div>
           <div class="stats">
-            <span class="k">组合点位(基1000)</span>
+            <span class="k">组合点位(基1000) · 10-15起</span>
             <span class="v" id="portPoint">--</span>
           </div>
         </div>
@@ -217,12 +219,12 @@
       <div class="card bench" id="cardBench">
         <div class="top">
           <span class="name">皮皮🐷</span>
-          <span class="tag">50 / 50 固定权重</span>
+          <span class="tag">10-15起 · 初始权重 50 / 50</span>
         </div>
         <div class="main">
           <div class="mega" id="benchPct">--</div>
           <div class="stats">
-            <span class="k">组合点位(基1000)</span>
+            <span class="k">组合点位(基1000) · 10-15起</span>
             <span class="v" id="benchPoint">--</span>
           </div>
         </div>
@@ -248,16 +250,16 @@
       </div>
       <div id="chart"></div>
       <div class="legend-note">
-        <span><i style="background:var(--port)"></i>五毒狗组合</span>
+        <span><i style="background:var(--port)"></i>五毒🐶组合</span>
         <span><i style="background:var(--bench)"></i>皮皮🐷</span>
         <span><i style="background:var(--line)"></i>基准线 100</span>
       </div>
     </section>
 
     <section class="summary">
-      <div class="sum"><div class="lbl"><i style="background:var(--port)"></i>五毒狗组合</div><div class="val" id="sumPortVal">--</div><div class="delta" id="sumPortD">--</div></div>
+      <div class="sum"><div class="lbl"><i style="background:var(--port)"></i>五毒🐶组合</div><div class="val" id="sumPortVal">--</div><div class="delta" id="sumPortD">--</div></div>
       <div class="sum"><div class="lbl"><i style="background:var(--bench)"></i>皮皮🐷</div><div class="val" id="sumBenchVal">--</div><div class="delta" id="sumBenchD">--</div></div>
-      <div class="sum"><div class="lbl"><i style="background:var(--text)"></i>超额(五毒狗 − 皮皮🐷)</div><div class="val" id="sumDiffVal">--</div><div class="delta" id="sumDiffD">--</div></div>
+      <div class="sum"><div class="lbl"><i style="background:var(--text)"></i>超额(五毒🐶 − 皮皮🐷)</div><div class="val" id="sumDiffVal">--</div><div class="delta" id="sumDiffD">--</div></div>
     </section>
 
     <section class="table-wrap">
@@ -271,7 +273,7 @@
     </section>
 
     <footer>
-      数据来源：东方财富公开行情接口 · 组合涨跌幅按固定权重加权计算 · 组合点位 = 1000 × (Σ权重×现价/昨收 + 现金占比)<br/>
+      数据来源：东方财富公开行情接口 · 组合以10-15持仓占比为起点买入持有（权重随涨跌漂移） · 组合点位 = 1000 × (Σ初始权重×现价/10-15收盘价 + 现金占比)<br/>
       前复权日线数据计算区间收益，仅用于走势对比参考，不构成投资建议。
     </footer>
   </div>
@@ -285,7 +287,7 @@
   "use strict";
 
   // ---- 标的基础配置 ----
-  const PORT_NAME  = "五毒狗组合";
+  const PORT_NAME  = "五毒🐶组合";
   const BENCH_NAME = "皮皮🐷";
   const STOCKS = [
     { code: "600008", market: 1, name: "首创环保", weight: 0.66,  group: "port" },
@@ -310,11 +312,13 @@
     y1: { label: "近1年", days: 250 },
     y3: { label: "近3年", days: 750 }
   };
+  const START_DATE = "2026-10-15";
 
   // ---- 状态 ----
   let currentKey = "p1015";
   let quoteMap = {};
   let chart = null;
+  let buyPrice = {};
 
   // ---- 工具 ----
   const $ = id => document.getElementById(id);
@@ -393,25 +397,58 @@
         });
       });
     }));
+    computeBuyPrice(out);
     return out;
   }
 
+  // 计算各标的 10-15 起点的买入价（买入持有基准）
+  function computeBuyPrice(klines) {
+    const m = {};
+    for (const s of STOCKS) {
+      const arr = klines[s.code] || [];
+      const k = arr.find(x => x.date >= START_DATE);
+      m[s.code] = k ? k.close : (arr.length ? arr[arr.length - 1].close : null);
+    }
+    buyPrice = m;
+  }
+
   // ---- 计算 ----
-  function groupPct(group, q) {
+  // 当日加权涨跌(%)：组合当日涨跌与「今日战果」判定
+  function groupDayPct(group, q) {
     let p = 0;
     for (const s of group) { const o = q[s.code]; if (o && !isNaN(o.pct)) p += s.weight * o.pct; }
     return p;
   }
   function groupPoint(group, q) {
     let v = 0, wsum = 0, ok = true;
-    for (const s of group) { const o = q[s.code]; if (!o || !o.pre) { ok = false; break; } v += s.weight * (o.price / o.pre); wsum += s.weight; }
+    for (const s of group) {
+      const o = q[s.code], bp = buyPrice[s.code];
+      if (!o || !o.price || !bp) { ok = false; break; }
+      v += s.weight * (o.price / bp);
+      wsum += s.weight;
+    }
     if (ok) v += (1 - wsum);
     return ok ? v * 1000 : null;
   }
-  const portPct = q => groupPct(PORT, q);
-  const benchPct = q => groupPct(BENCH, q);
   const portPoint = q => groupPoint(PORT, q);
   const benchPoint = q => groupPoint(BENCH, q);
+  // 实时市值权重：以 10-15 买入价为基准，权重随涨跌漂移
+  function liveWeights(group, q) {
+    const cash = 1 - group.reduce((a, s) => a + s.weight, 0);
+    let market = 0;
+    const m = {};
+    for (const s of group) {
+      const o = q[s.code];
+      const bp = buyPrice[s.code];
+      const r = (o && o.price && bp) ? (o.price / bp) : 1;
+      m[s.code] = s.weight * r;
+      market += m[s.code];
+    }
+    const total = market + cash;
+    const out = {};
+    for (const s of group) out[s.code] = total > 0 ? (m[s.code] / total) : s.weight;
+    return out;
+  }
 
   function begYmd() {
     const d = new Date();
@@ -470,21 +507,23 @@
       vals[s.code] = dates.map(d => { const c = mapClose[s.code][d]; if (c == null) return last; last = c; return c; });
     }
 
-    // 组合：每日再平衡，累积收益
+    // 组合：买入持有，权重随涨跌自然漂移
     const cumulate = group => {
       const n = vals[group[0].code].length;
-      const s = new Array(n);
-      s[0] = 100;
-      for (let i = 1; i < n; i++) {
-        let r = 0, ok = true;
-        for (const st of group) {
-          const a = vals[st.code][i - 1], b = vals[st.code][i];
-          if (a == null || b == null || a === 0) { ok = false; break; }
-          r += st.weight * (b / a - 1);
-        }
-        s[i] = ok ? s[i - 1] * (1 + r) : s[i - 1];
+      const cash = 1 - group.reduce((a, s) => a + s.weight, 0);
+      // 各成分买入基准价 = 区间内首个有效价；买入前按现金(1倍)计
+      const ratio = {};
+      for (const s of group) {
+        const b0 = vals[s.code].find(x => x != null);
+        ratio[s.code] = vals[s.code].map(p => (p == null || b0 == null || b0 === 0) ? 1 : p / b0);
       }
-      return s;
+      const out = new Array(n);
+      for (let i = 0; i < n; i++) {
+        let v = cash;
+        for (const s of group) v += s.weight * ratio[s.code][i];
+        out[i] = v * 100;
+      }
+      return out;
     };
 
     const port = cumulate(PORT);
@@ -522,7 +561,7 @@
           if (params.length === 2 && params[0].value != null && params[1].value != null) {
             const diff = params[0].value - params[1].value;
             const c = diff >= 0 ? "#e0393f" : "#0ea371";
-            html += '<div style="margin-top:7px;padding-top:7px;border-top:1px solid #e3edf6;font-size:12px;color:' + c + '">五毒狗 − 皮皮🐷：' + (diff >= 0 ? "+" : "") + diff.toFixed(2) + '</div>';
+            html += '<div style="margin-top:7px;padding-top:7px;border-top:1px solid #e3edf6;font-size:12px;color:' + c + '">五毒🐶 − 皮皮🐷：' + (diff >= 0 ? "+" : "") + diff.toFixed(2) + '</div>';
           }
           return html;
         }
@@ -584,7 +623,7 @@
   // ---- 报价卡片 & 表格 ----
   function updateCards() {
     const q = quoteMap;
-    const pp = portPct(q);
+    const pp = groupDayPct(PORT, q);
     const point = portPoint(q);
 
     const pEl = $("portPct");
@@ -595,7 +634,7 @@
     ptEl.className = "v " + signClass(pp);
     $("portChips").innerHTML = chipsHtml(PORT, q);
 
-    const bp = benchPct(q);
+    const bp = groupDayPct(BENCH, q);
     const bpoint = benchPoint(q);
     const bEl = $("benchPct");
     bEl.textContent = sPct(bp);
@@ -608,40 +647,53 @@
   }
 
   function chipsHtml(group, q) {
-    return group.map(s => {
+    const w = liveWeights(group, q);
+    let html = group.map(s => {
       const o = q[s.code];
       return '<span class="chip"><span style="font-weight:600">' + s.name + '</span>' +
-        '<span class="w">' + wTxt(s.weight) + '</span>' +
+        '<span class="w">' + wTxt(w[s.code]) + '</span>' +
         '<span class="pct ' + signClass(o ? o.pct : 0) + '">' + (o ? sPct(o.pct) : "--") + '</span></span>';
     }).join("");
+    let stockW = 0;
+    for (const s of group) stockW += w[s.code];
+    const cashW = 1 - stockW;
+    if (cashW > 0.001) {
+      html += '<span class="chip"><span style="font-weight:600">现金</span>' +
+        '<span class="w">' + wTxt(cashW) + '</span>' +
+        '<span class="pct" style="color:var(--muted)">0.00%</span></span>';
+    }
+    return html;
   }
 
   function updateWinner() {
-    const pp = portPct(quoteMap);
-    const bp = benchPct(quoteMap);
+    const pp = groupDayPct(PORT, quoteMap);
+    const bp = groupDayPct(BENCH, quoteMap);
     const wrap = $("winnerWrap");
     const name = $("winnerName");
     if (pp == null || bp == null || pp === bp) { wrap.style.display = "none"; return; }
     wrap.style.display = "flex";
     if (pp > bp) {
-      name.textContent = "五毒狗赢"; name.style.color = "var(--port)";
+      name.textContent = "五毒🐶赢"; name.style.color = "var(--port)";
     } else {
-      name.textContent = "皮皮虾赢"; name.style.color = "var(--bench)";
+      name.textContent = "🐷 皮皮虾赢"; name.style.color = "var(--bench)";
     }
   }
 
   function updateTable() {
     const q = quoteMap;
     let rows = "";
+    const pw = liveWeights(PORT, q);
+    const bw = liveWeights(BENCH, q);
     const all = [...PORT, ...BENCH];
     all.forEach(s => {
       const o = q[s.code];
       const isPort = s.group === "port";
       const pctCls = signClass(o ? o.pct : 0);
+      const liveW = isPort ? pw[s.code] : bw[s.code];
       rows += '<tr' + (isPort ? "" : ' class="group-row"') + '>' +
         '<td><div class="tname">' + s.name + (isPort ? "" : ' <span style="color:var(--bench);font-weight:700">◆ 皮皮🐷</span>') + '</div>' +
         '<div class="tcode">' + (s.market === 1 ? "SH" : "SZ") + " " + s.code + '</div></td>' +
-        '<td class="bw">' + wTxt(s.weight) + '</td>' +
+        '<td class="bw">' + wTxt(liveW) + '</td>' +
         '<td class="price">' + (o ? n2(o.price) : "--") + '</td>' +
         '<td class="' + pctCls + '">' + (o ? sNum(o.chg) : "--") + '</td>' +
         '<td class="pct-cell ' + pctCls + '">' + (o ? sPct(o.pct) : "--") + '</td>' +
@@ -690,6 +742,9 @@
       toast("报价刷新失败");
     }
     await renderCurrent();
+    // 日线加载后 buyPrice 已就绪，按 10-15 基准同步卡片与表格权重
+    updateCards();
+    updateTable();
   }
 
   function resizeCharts() { if (chart) chart.resize(); }
